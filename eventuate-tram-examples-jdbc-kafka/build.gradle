@@ -1,0 +1,50 @@
+plugins {
+    id "io.spring.dependency-management" version "1.0.6.RELEASE"
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://jcenter.bintray.com" }
+}
+
+dependencyManagement {
+    imports {
+        mavenBom 'io.micronaut:micronaut-bom:1.1.0'
+    }
+}
+
+dependencies {
+    testCompile project(":eventuate-tram-examples-common")
+
+    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-consumer-micronaut:$eventuateMessagingKafkaVersion"
+    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-common-micronaut:$eventuateMessagingKafkaVersion"
+    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-basic-consumer-micronaut:$eventuateMessagingKafkaVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-jdbc-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-producer-jdbc-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-messaging-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-consumer-common-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-consumer-kafka-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-events-micronaut:$eventuateTramVersion"
+
+
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+    testAnnotationProcessor "io.micronaut:micronaut-validation"
+    testAnnotationProcessor "io.micronaut.configuration:micronaut-openapi"
+    testCompile "io.micronaut:micronaut-inject"
+    testCompile "io.micronaut:micronaut-validation"
+    testCompile "io.micronaut:micronaut-runtime"
+    testCompile "org.junit.jupiter:junit-jupiter-api"
+    testCompile "io.micronaut.test:micronaut-test-junit5"
+    testRuntime "org.junit.jupiter:junit-jupiter-engine"
+
+    testRuntime 'io.micronaut.configuration:micronaut-jdbc-hikari'
+}
+
+// use JUnit 5 platform
+test {
+    useJUnitPlatform()
+}
+
+test {
+    forkEvery 1
+}
