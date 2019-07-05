@@ -16,13 +16,9 @@ dependencyManagement {
 dependencies {
     testCompile project(":eventuate-tram-examples-common")
 
-    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-consumer-micronaut:$eventuateMessagingKafkaVersion"
-    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-common-micronaut:$eventuateMessagingKafkaVersion"
-    testCompile "io.eventuate.messaging.kafka:eventuate-messaging-kafka-basic-consumer-micronaut:$eventuateMessagingKafkaVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-jdbc-micronaut:$eventuateTramVersion"
+
     testCompile "io.eventuate.tram.core:eventuate-tram-producer-jdbc-micronaut:$eventuateTramVersion"
     testCompile "io.eventuate.tram.core:eventuate-tram-messaging-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-consumer-common-micronaut:$eventuateTramVersion"
     testCompile "io.eventuate.tram.core:eventuate-tram-consumer-kafka-micronaut:$eventuateTramVersion"
     testCompile "io.eventuate.tram.core:eventuate-tram-events-micronaut:$eventuateTramVersion"
 
