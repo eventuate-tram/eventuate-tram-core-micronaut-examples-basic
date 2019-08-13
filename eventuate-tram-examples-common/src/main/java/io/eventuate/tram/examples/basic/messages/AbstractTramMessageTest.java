@@ -1,11 +1,12 @@
 package io.eventuate.tram.examples.basic.messages;
 
-import io.eventuate.tram.events.subscriber.DomainEventDispatcher;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.messaging.consumer.MessageConsumer;
 import io.eventuate.tram.messaging.producer.MessageBuilder;
 import io.eventuate.tram.messaging.producer.MessageProducer;
 import org.junit.jupiter.api.Test;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -29,12 +30,21 @@ public abstract class AbstractTramMessageTest {
   @Inject
   private MessageConsumer messageConsumer;
 
+  @Inject
+  private TransactionTemplate transactionTemplate;
+
   private BlockingQueue<Message> queue = new LinkedBlockingDeque<>();
 
   @Test
   public void shouldReceiveMessage() throws InterruptedException {
     messageConsumer.subscribe(subscriberId, Collections.singleton(destination), this::handleMessage);
-    messageProducer.send(destination, MessageBuilder.withPayload(payload).build());
+
+    transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
+
+    transactionTemplate.execute(status -> {
+      messageProducer.send(destination, MessageBuilder.withPayload(payload).build());
+      return null;
+    });
 
     Message m = queue.poll(30, TimeUnit.SECONDS);
 

@@ -1,0 +1,6 @@
+datasources:
+  default:
+    url: ${DATASOURCE_URL}
+    driverClassName: ${DATASOURCE_DRIVERCLASSNAME}
+    username: ${DATASOURCE_USERNAME}
+    password: ${DATASOURCE_PASSWORD}
