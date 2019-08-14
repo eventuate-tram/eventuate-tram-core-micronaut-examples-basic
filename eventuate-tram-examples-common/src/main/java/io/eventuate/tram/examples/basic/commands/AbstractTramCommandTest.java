@@ -5,8 +5,6 @@ import io.eventuate.tram.commands.producer.CommandProducer;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.messaging.consumer.MessageConsumer;
 import org.junit.jupiter.api.Test;
-import org.springframework.transaction.TransactionDefinition;
-import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.inject.Inject;
 import java.util.Collections;
@@ -28,9 +26,6 @@ public abstract class AbstractTramCommandTest {
   @Inject
   private MessageConsumer messageConsumer;
 
-  @Inject
-  private TransactionTemplate transactionTemplate;
-
   private BlockingQueue<Message> queue = new LinkedBlockingDeque<>();
 
   @Test
@@ -38,9 +33,7 @@ public abstract class AbstractTramCommandTest {
 
     subscribeToReplyChannel();
 
-    transactionTemplate.setPropagationBehavior(TransactionDefinition.PROPAGATION_REQUIRES_NEW);
-
-    String commandId = transactionTemplate.execute(status -> sendCommand());
+    String commandId = sendCommand();
 
     assertReplyReceived(commandId);
   }
