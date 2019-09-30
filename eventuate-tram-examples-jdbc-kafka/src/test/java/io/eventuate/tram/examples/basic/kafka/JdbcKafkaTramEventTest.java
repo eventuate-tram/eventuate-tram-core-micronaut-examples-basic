@@ -4,6 +4,6 @@ import io.eventuate.tram.examples.basic.events.AbstractTramEventTest;
 import io.micronaut.test.annotation.MicronautTest;
 
 
-@MicronautTest
+@MicronautTest(transactional = false)
 public class JdbcKafkaTramEventTest extends AbstractTramEventTest {
 }

@@ -24,13 +24,12 @@ public abstract class AbstractTramEventTest {
   private TramEventTestEventConsumer tramEventTestEventConsumer;
 
   @Test
-  public void shouldReceiveEvent() throws InterruptedException {
+  public void shouldReceiveEvent() throws Exception {
     long uniqueId = config.getUniqueId();
 
     DomainEvent domainEvent = new AccountDebited(uniqueId);
 
     domainEventPublisher.publish(config.getAggregateType(), config.getAggregateId(), Collections.singletonList(domainEvent));
-
 
     AccountDebited event = tramEventTestEventConsumer.getQueue().poll(30, TimeUnit.SECONDS);
 

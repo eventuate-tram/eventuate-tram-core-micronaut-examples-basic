@@ -1,3 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.avast.gradle:gradle-docker-compose-plugin:0.9.2"
+    }
+}
+
+apply plugin: 'docker-compose'
 
 allprojects {
     group = "io.eventuate.tram.examples.basic"
@@ -14,5 +24,16 @@ subprojects {
         mavenCentral()
         jcenter()
         eventuateMavenRepoUrl.split(',').each { repoUrl -> maven { url repoUrl } }
+    }
+}
+
+dockerCompose {
+    environment.put "EVENTUATE_COMMON_VERSION", eventuateCommonImageVersion
+    environment.put "EVENTUATE_KAFKA_VERSION", eventuateMessagingKafkaImageVersion
+    environment.put "EVENTUATE_CDC_VERSION", eventuateCdcImageVersion
+
+    mysqlbinlog {
+        projectName = null
+        useComposeFiles = ["docker-compose-mysql-binlog.yml"]
     }
 }

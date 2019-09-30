@@ -1,6 +1,5 @@
 package io.eventuate.tram.examples.basic.messages;
 
-import io.eventuate.tram.events.subscriber.DomainEventDispatcher;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.messaging.consumer.MessageConsumer;
 import io.eventuate.tram.messaging.producer.MessageBuilder;
@@ -34,6 +33,7 @@ public abstract class AbstractTramMessageTest {
   @Test
   public void shouldReceiveMessage() throws InterruptedException {
     messageConsumer.subscribe(subscriberId, Collections.singleton(destination), this::handleMessage);
+
     messageProducer.send(destination, MessageBuilder.withPayload(payload).build());
 
     Message m = queue.poll(30, TimeUnit.SECONDS);

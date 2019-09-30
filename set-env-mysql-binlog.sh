@@ -1,8 +1,9 @@
 . ./_set-env.sh
 
-export DATASOURCES_DEFAULT_URL=jdbc:mysql://${DOCKER_HOST_IP}/eventuate
-export DATASOURCES_DEFAULT_USERNAME=mysqluser
-export DATASOURCES_DEFAULT_PASSWORD=mysqlpw
-export DATASOURCES_DEFAULT_DRIVERCLASSNAME=com.mysql.jdbc.Driver
+export DATASOURCE_URL=jdbc:mysql://${DOCKER_HOST_IP}/eventuate
+export DATASOURCE_USERNAME=mysqluser
+export DATASOURCE_PASSWORD=mysqlpw
+export DATASOURCE_DRIVERCLASSNAME=com.mysql.jdbc.Driver
+
 export EVENTUATELOCAL_CDC_DB_USER_NAME=root
 export EVENTUATELOCAL_CDC_DB_PASSWORD=rootpassword
