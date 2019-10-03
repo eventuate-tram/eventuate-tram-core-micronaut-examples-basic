@@ -32,8 +32,17 @@ dockerCompose {
     environment.put "EVENTUATE_KAFKA_VERSION", eventuateMessagingKafkaImageVersion
     environment.put "EVENTUATE_CDC_VERSION", eventuateCdcImageVersion
 
+    mysqlbinlogOnly {
+        projectName = null
+        startedServices = [ 'mysql']
+        useComposeFiles = ["docker-compose-mysql-binlog.yml"]
+    }
+
     mysqlbinlog {
         projectName = null
         useComposeFiles = ["docker-compose-mysql-binlog.yml"]
     }
 }
+
+mysqlbinlogComposeUp.dependsOn(mysqlbinlogComposeBuild)
+mysqlbinlogComposeUp.dependsOn(mysqlbinlogOnlyComposeUp)
