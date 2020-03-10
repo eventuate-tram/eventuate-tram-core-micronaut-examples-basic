@@ -16,12 +16,12 @@ dependencyManagement {
 dependencies {
     testCompile project(":eventuate-tram-examples-common")
 
-    testCompile "io.eventuate.tram.core:eventuate-tram-producer-jdbc-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-consumer-kafka-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-events-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-commands-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-consumer-jdbc-micronaut:$eventuateTramVersion"
-    testCompile "io.eventuate.tram.core:eventuate-tram-messaging-micronaut:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-producer-jdbc:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-consumer-kafka:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-events:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-commands:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-consumer-jdbc:$eventuateTramVersion"
+    testCompile "io.eventuate.tram.core:eventuate-tram-micronaut-messaging:$eventuateTramVersion"
 
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor "io.micronaut:micronaut-validation"
