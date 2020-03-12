@@ -4,3 +4,11 @@ datasources:
     driverClassName: ${DATASOURCE_DRIVERCLASSNAME}
     username: ${DATASOURCE_USERNAME}
     password: ${DATASOURCE_PASSWORD}
+
+eventuatelocal:
+  kafka:
+    bootstrap:
+      servers: ${DOCKER_HOST_IP}:9092
+  zookeeper:
+    connection:
+      string: ${DOCKER_HOST_IP}:2181
