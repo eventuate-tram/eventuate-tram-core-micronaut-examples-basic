@@ -2,18 +2,18 @@ version: 2
 jobs:
   build:
     machine: true
-    working_directory: ~/eventuate-tram-core-examples-basic
+    working_directory: ~/eventuate-tram-core-micronaut-examples-basic
     steps:
       - checkout
       - restore_cache:
           keys:
-            - eventuate-tram-core-examples-basic-{{ checksum "gradle.properties" }}
-            - eventuate-tram-core-examples-basic-
+            - eventuate-tram-core-micronaut-examples-basic-{{ checksum "gradle.properties" }}
+            - eventuate-tram-core-micronaut-examples-basic-
       - run: TERM=dumb ./gradlew testClasses
       - save_cache:
           paths:
             - ~/.gradle
-          key: eventuate-tram-core-examples-basic-{{ checksum "gradle.properties" }}
+          key: eventuate-tram-core-micronaut-examples-basic-{{ checksum "gradle.properties" }}
       - run: TERM=dumb ./build-and-test-all-mysql-binlog-kafka.sh
       - run:
           name: Save test results
