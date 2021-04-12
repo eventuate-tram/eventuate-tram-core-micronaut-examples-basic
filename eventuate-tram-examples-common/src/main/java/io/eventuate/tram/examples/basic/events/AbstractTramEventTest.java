@@ -1,5 +1,6 @@
 package io.eventuate.tram.examples.basic.events;
 
+import io.eventuate.common.jdbc.EventuateTransactionTemplate;
 import io.eventuate.tram.events.common.DomainEvent;
 import io.eventuate.tram.events.publisher.DomainEventPublisher;
 import io.eventuate.tram.examples.basic.events.domain.AccountDebited;
@@ -23,13 +24,19 @@ public abstract class AbstractTramEventTest {
   @Inject
   private TramEventTestEventConsumer tramEventTestEventConsumer;
 
+  @Inject
+  private EventuateTransactionTemplate eventuateTransactionTemplate;
+
   @Test
   public void shouldReceiveEvent() throws Exception {
     long uniqueId = config.getUniqueId();
 
     DomainEvent domainEvent = new AccountDebited(uniqueId);
 
-    domainEventPublisher.publish(config.getAggregateType(), config.getAggregateId(), Collections.singletonList(domainEvent));
+    eventuateTransactionTemplate.executeInTransaction(() -> {
+      domainEventPublisher.publish(config.getAggregateType(), config.getAggregateId(), Collections.singletonList(domainEvent));
+      return null;
+    });
 
     AccountDebited event = tramEventTestEventConsumer.getQueue().poll(30, TimeUnit.SECONDS);
 

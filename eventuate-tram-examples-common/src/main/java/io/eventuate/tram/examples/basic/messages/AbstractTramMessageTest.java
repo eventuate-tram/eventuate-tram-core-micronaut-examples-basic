@@ -1,5 +1,6 @@
 package io.eventuate.tram.examples.basic.messages;
 
+import io.eventuate.common.jdbc.EventuateTransactionTemplate;
 import io.eventuate.tram.messaging.common.Message;
 import io.eventuate.tram.messaging.consumer.MessageConsumer;
 import io.eventuate.tram.messaging.producer.MessageBuilder;
@@ -28,13 +29,19 @@ public abstract class AbstractTramMessageTest {
   @Inject
   private MessageConsumer messageConsumer;
 
+  @Inject
+  private EventuateTransactionTemplate eventuateTransactionTemplate;
+
   private BlockingQueue<Message> queue = new LinkedBlockingDeque<>();
 
   @Test
   public void shouldReceiveMessage() throws InterruptedException {
     messageConsumer.subscribe(subscriberId, Collections.singleton(destination), this::handleMessage);
 
-    messageProducer.send(destination, MessageBuilder.withPayload(payload).build());
+    eventuateTransactionTemplate.executeInTransaction(() -> {
+      messageProducer.send(destination, MessageBuilder.withPayload(payload).build());
+      return null;
+    });
 
     Message m = queue.poll(30, TimeUnit.SECONDS);
 

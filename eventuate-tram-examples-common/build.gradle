@@ -9,7 +9,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.1.0'
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
     }
 }
 
@@ -19,8 +19,6 @@ dependencies {
     compile "io.eventuate.tram.core:eventuate-tram-events:$eventuateTramVersion"
     compile "io.eventuate.tram.core:eventuate-tram-commands:$eventuateTramVersion"
     compile "io.eventuate.tram.core:eventuate-tram-consumer-kafka:$eventuateTramVersion"
-
-    compile "io.micronaut:micronaut-spring"
 
     compile "junit:junit:4.12"
     compile "org.mockito:mockito-all:1.10.19"

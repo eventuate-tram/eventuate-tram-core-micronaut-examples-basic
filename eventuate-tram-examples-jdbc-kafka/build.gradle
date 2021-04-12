@@ -9,7 +9,7 @@ repositories {
 
 dependencyManagement {
     imports {
-        mavenBom 'io.micronaut:micronaut-bom:1.2.0'
+        mavenBom "io.micronaut:micronaut-bom:$micronautVersion"
     }
 }
 
@@ -33,7 +33,7 @@ dependencies {
     testCompile "io.micronaut.test:micronaut-test-junit5"
     testRuntime "org.junit.jupiter:junit-jupiter-engine"
 
-    testRuntime 'io.micronaut.configuration:micronaut-jdbc-hikari'
+    testRuntime 'io.micronaut.sql:micronaut-jdbc-hikari'
 }
 
 // use JUnit 5 platform
