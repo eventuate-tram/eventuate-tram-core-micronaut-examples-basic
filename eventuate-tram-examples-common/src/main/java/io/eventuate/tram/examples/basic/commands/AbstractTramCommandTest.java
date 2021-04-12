@@ -1,5 +1,6 @@
 package io.eventuate.tram.examples.basic.commands;
 
+import io.eventuate.common.jdbc.EventuateTransactionTemplate;
 import io.eventuate.tram.commands.common.ReplyMessageHeaders;
 import io.eventuate.tram.commands.producer.CommandProducer;
 import io.eventuate.tram.messaging.common.Message;
@@ -26,6 +27,9 @@ public abstract class AbstractTramCommandTest {
   @Inject
   private MessageConsumer messageConsumer;
 
+  @Inject
+  private EventuateTransactionTemplate eventuateTransactionTemplate;
+
   private BlockingQueue<Message> queue = new LinkedBlockingDeque<>();
 
   @Test
@@ -46,10 +50,12 @@ public abstract class AbstractTramCommandTest {
   }
 
   private String sendCommand() {
-    return commandProducer.send(config.getCommandChannel(),
+    return eventuateTransactionTemplate.executeInTransaction(() -> {
+      return commandProducer.send(config.getCommandChannel(),
               new DoSomethingCommand(),
               config.getReplyChannel(),
               Collections.emptyMap());
+    });
   }
 
   private void subscribeToReplyChannel() {
